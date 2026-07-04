@@ -11,6 +11,8 @@ export interface CV {
   interests: Array<Interests>
   references: Array<References>
   projects: Array<Projects>
+  certifications?: Certification[]
+  tools?: Tool[]
 }
 
 interface Basics {
@@ -130,6 +132,10 @@ interface Projects {
   highlights: Highlight
   url: string
   github?: string
+  images?: string[]
+  techStack?: string[]
+  role?: string
+  type?: 'backend' | 'devops' | 'blockchain' | 'fullstack' | 'mobile' | 'ai'
 }
 
 interface Interests {
@@ -142,6 +148,22 @@ interface References {
   reference: string
 }
 
-type Highlight = Array<String>
+type Highlight = Array<string>
 
-type images = Array<String>
+type images = Array<string>
+
+// ── Type extensions for DevOps/Blockchain portfolio ──
+
+export interface Certification {
+  name: string
+  date: string
+  issuer: string
+  url?: string
+  credentialId?: string
+}
+
+export interface Tool {
+  name: string
+  category: 'devops' | 'blockchain' | 'cloud' | 'monitoring' | 'ci-cd' | 'infrastructure'
+  level?: string
+}
