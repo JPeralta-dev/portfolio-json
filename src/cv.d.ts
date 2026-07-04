@@ -15,13 +15,14 @@ export interface CV {
   tools?: Tool[]
 }
 
-interface Basics {
+export interface Basics {
   name: string
   label: string
   image: string
   email: string
   phone: string
   url: string
+  cv?: string
   summary: string
   location: Location
   profiles: Array<Profiles>
@@ -41,17 +42,17 @@ interface Profiles {
   url: string
 }
 
-interface Work {
+export interface Work {
   name: string
   position: string
-  url: string
+  url?: string
   startDate: DateStr
   endDate: DateStr | null
   summary: string
   highlights: Highlight
 }
 
-type DateStr = `${string}-${string}-${string}`
+type DateStr = string
 
 interface Volunteer {
   organization: string
@@ -63,7 +64,7 @@ interface Volunteer {
   highlights: Highlight
 }
 
-interface Skills {
+export interface Skills {
   name: string
   level: string
   keywords: Array<string>
@@ -91,15 +92,15 @@ interface Publications {
   summary: string
 }
 
-interface Education {
+export interface Education {
   institution: string
-  url: string
+  url?: string
   area: string
   studyType: string
   startDate: DateStr
-  endDate: DateStr
-  score: string
-  courses: Array<string>
+  endDate: DateStr | null
+  score?: string
+  courses?: Array<string>
 }
 
 interface Languages {
@@ -125,17 +126,17 @@ type Language =
   | "Bengali"
   | string
 
-interface Projects {
+export interface Projects {
   name: string
   isActive: boolean
   description: string
   highlights: Highlight
-  url: string
+  url?: string
   github?: string
   images?: string[]
   techStack?: string[]
   role?: string
-  type?: 'backend' | 'devops' | 'blockchain' | 'fullstack' | 'mobile' | 'ai'
+  type?: string
 }
 
 interface Interests {
@@ -164,6 +165,6 @@ export interface Certification {
 
 export interface Tool {
   name: string
-  category: 'devops' | 'blockchain' | 'cloud' | 'monitoring' | 'ci-cd' | 'infrastructure'
+  category: string
   level?: string
 }

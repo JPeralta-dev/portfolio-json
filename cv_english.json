@@ -263,8 +263,7 @@
       "github": "https://github.com/david123456858/Cajero-Back",
       "type": "backend",
       "role": "Backend Developer",
-      "techStack": ["Node.js", "MySQL", "REST API"],
-      "images": ["/projects/cajero1.webp", "/projects/cajero2.webp"]
+      "techStack": ["Node.js", "MySQL", "REST API"]
     },
     {
       "name": "DevelopWork",

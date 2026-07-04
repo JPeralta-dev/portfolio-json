@@ -1,4 +1,5 @@
 ---
+import type { Skills as Skill } from "@/cv"
 import Section from "../Section.astro"
 import HTML from "@/icons/html.astro"
 import CSS from "@/icons/css.astro"
@@ -11,11 +12,16 @@ import Git from "@/icons/git.astro"
 import GitHub from "@/icons/GitHub.astro"
 import Tailwind from "@/icons/tailwind.astro"
 import Next from "@/icons/next.astro"
-import { skills } from "@cv"
 import Swift from "@/icons/swift.astro"
 import SwiftUI from "@/icons/swiftui.astro"
 import Kotlin from "@/icons/kotlin.astro"
 import Flutter from "@/icons/flutter.astro"
+
+interface Props {
+  skills: Skill[]
+}
+
+const { skills } = Astro.props
 
 const SKILLS_ICONS: Record<string, any> = {
   HTML,
@@ -35,23 +41,22 @@ const SKILLS_ICONS: Record<string, any> = {
   Flutter,
 }
 
-// Categorize skills by their primary keyword
-function categorizeSkills(skillsList: typeof skills) {
-  const categories: Record<string, typeof skills> = {}
+// Categorize skills by their primary keyword — aligned with DevOps/Blockchain identity
+function categorizeSkills(skillsList: Skill[]) {
+  const categories: Record<string, Skill[]> = {}
   
   for (const skill of skillsList) {
     const keywords = skill.keywords || []
-    // Determine category from keywords — aligned with DevOps/Blockchain identity
-    let category = "Tecnologías"
+    let category = "Tecnologias"
     if (keywords.includes("DevOps") || keywords.includes("Infraestructura") || keywords.includes("CI/CD") || keywords.includes("Cloud") || keywords.includes("Contenedores")) {
       category = "DevOps & Infra"
-    } else if (keywords.includes("Blockchain") || keywords.includes("Web3") || keywords.includes("Smart Contracts") || keywords.includes("Solidity") || keywords.includes("DeFi")) {
+    } else if (keywords.includes("Blockchain") || keywords.includes("Web3") || keywords.includes("Smart Contracts") || keywords.includes("DeFi")) {
       category = "Blockchain & Web3"
     } else if (keywords.includes("Bases de Datos") || keywords.includes("SQL") || keywords.includes("NoSQL") || keywords.includes("Almacenamiento")) {
       category = "Bases de Datos"
-    } else if (keywords.includes("Control de Versiones") || keywords.includes("Colaboración") || keywords.includes("Git")) {
+    } else if (keywords.includes("Control de Versiones") || keywords.includes("Colaboracion") || keywords.includes("Git")) {
       category = "Herramientas"
-    } else if (keywords.includes("Frontend") || keywords.includes("Desarrollo Web") || keywords.includes("UI") || keywords.includes("CSS") || keywords.includes("Diseño Responsive")) {
+    } else if (keywords.includes("Frontend") || keywords.includes("Desarrollo Web") || keywords.includes("UI") || keywords.includes("CSS") || keywords.includes("Diseno Responsive")) {
       category = "Lenguajes & Frameworks"
     } else if (keywords.includes("Backend") || keywords.includes("Servidor") || keywords.includes("API") || keywords.includes("JavaScript Superset") || keywords.includes("SSR")) {
       category = "Lenguajes & Frameworks"
@@ -68,10 +73,8 @@ function categorizeSkills(skillsList: typeof skills) {
 
 const categorizedSkills = categorizeSkills(skills)
 
-// Maintain a consistent display order
 const categoryOrder = ["DevOps & Infra", "Blockchain & Web3", "Lenguajes & Frameworks", "Bases de Datos", "Herramientas"]
 const orderedCategories = categoryOrder.filter(cat => categorizedSkills[cat])
-// Add any remaining categories not in the order list
 for (const cat of Object.keys(categorizedSkills)) {
   if (!orderedCategories.includes(cat)) {
     orderedCategories.push(cat)

@@ -1,0 +1,54 @@
+---
+interface Props {
+  lang: 'es' | 'en'
+}
+
+const { lang } = Astro.props
+const otherLang = lang === 'es' ? 'en' : 'es'
+const label = lang === 'es' ? 'EN' : 'ES'
+const href = otherLang === 'es' ? '/' : '/en/'
+const title = lang === 'es' ? 'Switch to English' : 'Cambiar a espanol'
+---
+
+<a
+  href={href}
+  class="lang-toggle"
+  title={title}
+  aria-label={title}
+>
+  {label}
+</a>
+
+<style>
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      border-color var(--transition-fast),
+      background var(--transition-fast),
+      color var(--transition-fast);
+  }
+
+  .lang-toggle:hover {
+    border-color: var(--color-border-hover);
+    background: var(--color-accent-muted);
+    color: var(--color-accent);
+  }
+
+  .lang-toggle:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+</style>

@@ -1,8 +1,11 @@
 ---
 import Section from "../Section.astro"
 
-import { basics } from "@cv"
-const { summary } = basics
+interface Props {
+  summary: string
+}
+
+const { summary } = Astro.props
 ---
 
 <Section title="Sobre mí" transitionName="section-about">
@@ -16,7 +19,6 @@ const { summary } = basics
     font-size: var(--font-size-base);
     line-height: 1.7;
     color: var(--color-text-secondary);
-    max-width: 65ch;
     padding-left: var(--space-4);
     border-left: 3px solid var(--color-accent);
     text-wrap: pretty;

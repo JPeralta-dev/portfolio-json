@@ -1,7 +1,12 @@
 ---
+import type { Work } from "@/cv"
 import Section from "../Section.astro"
 
-import { work } from "@cv"
+interface Props {
+  work: Work[]
+}
+
+const { work } = Astro.props
 ---
 
 <Section title="Experiencia laboral" transitionName="section-experience">

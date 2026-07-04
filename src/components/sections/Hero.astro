@@ -1,5 +1,5 @@
 ---
-import { basics } from "@cv"
+import type { Basics } from "@/cv"
 import Section from "@/components/Section.astro"
 import TerminalText from "@/components/TerminalText.astro"
 import NetworkBackground from "@/components/NetworkBackground.astro"
@@ -12,7 +12,11 @@ import WorldMap from "@/icons/WorldMap.astro"
 import Resume2 from "@/icons/Resume2.astro"
 import type { SocialIcon } from "@/types"
 
+interface Props {
+  basics: Basics
+}
 
+const { basics } = Astro.props
 const { name, label, image, location, profiles, phone, email} = basics
 const { city, region } = location
 

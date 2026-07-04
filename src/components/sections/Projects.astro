@@ -1,8 +1,13 @@
 ---
+import type { Projects as Project } from "@/cv"
 import GitHub from "@/icons/GitHub.astro"
 import Section from "../Section.astro"
 
-import { projects } from "@cv"
+interface Props {
+  projects: Project[]
+}
+
+const { projects } = Astro.props
 ---
 
 <Section title="Proyectos" transitionName="section-projects">

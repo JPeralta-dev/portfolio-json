@@ -1,0 +1,66 @@
+---
+import type { CV } from "@/cv"
+import Layout from "@/layouts/Layout.astro"
+import Nav from "@/components/Nav.astro"
+import About from "@/components/sections/About.astro"
+import Education from "@/components/sections/Education.astro"
+import Experience from "@/components/sections/Experience.astro"
+import Hero from "@/components/sections/Hero.astro"
+import Projects from "@/components/sections/Projects.astro"
+import Skills from "@/components/sections/Skills.astro"
+import KeyboardManager from "@/components/KeyboardManager.astro"
+
+interface Props {
+  cv: CV
+  lang: 'es' | 'en'
+}
+
+const { cv, lang } = Astro.props
+const { basics, work, education, skills, projects } = cv
+const { name, label } = basics
+---
+
+<Layout title={`Portafolio de ${name} - ${label}`}>
+  <main id="main-content">
+    <Nav lang={lang} />
+    <section id="hero" transition:animate="fade" transition:name="section-hero">
+      <Hero basics={basics} />
+    </section>
+    <section id="about" transition:animate="slide" transition:name="section-about">
+      <About summary={basics.summary} />
+    </section>
+    <section id="experience" transition:animate="slide" transition:name="section-experience">
+      <Experience work={work} />
+    </section>
+    <section id="projects" transition:animate="slide" transition:name="section-projects">
+      <Projects projects={projects} />
+    </section>
+    <section id="skills" transition:animate="slide" transition:name="section-skills">
+      <Skills skills={skills} />
+    </section>
+    <section id="education" transition:animate="slide" transition:name="section-education">
+      <Education education={education} />
+    </section>
+  </main>
+
+  <KeyboardManager />
+</Layout>
+
+<style>
+  main {
+    padding: var(--space-16) var(--space-8) var(--space-12);
+    margin: auto;
+    width: 100%;
+    max-width: var(--max-width);
+  }
+
+  main > section {
+    scroll-margin-top: calc(var(--nav-height) + var(--space-4));
+  }
+
+  @media (width <= 700px) {
+    main {
+      padding: var(--space-12) var(--space-4) var(--space-8);
+    }
+  }
+</style>

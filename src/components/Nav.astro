@@ -1,5 +1,12 @@
 ---
 import ThemeToggle from "@/components/ThemeToggle.astro"
+import LanguageToggle from "@/components/LanguageToggle.astro"
+
+interface Props {
+  lang: 'es' | 'en'
+}
+
+const { lang } = Astro.props
 
 interface NavItem {
   label: string
@@ -7,13 +14,20 @@ interface NavItem {
   sectionId: string
 }
 
-const navItems: NavItem[] = [
+const navItems: NavItem[] = lang === 'es' ? [
   { label: "Inicio", href: "#hero", sectionId: "hero" },
-  { label: "Sobre mí", href: "#about", sectionId: "about" },
+  { label: "Sobre mi", href: "#about", sectionId: "about" },
   { label: "Experiencia", href: "#experience", sectionId: "experience" },
   { label: "Proyectos", href: "#projects", sectionId: "projects" },
-  { label: "Educación", href: "#education", sectionId: "education" },
   { label: "Skills", href: "#skills", sectionId: "skills" },
+  { label: "Educacion", href: "#education", sectionId: "education" },
+] : [
+  { label: "Home", href: "#hero", sectionId: "hero" },
+  { label: "About", href: "#about", sectionId: "about" },
+  { label: "Experience", href: "#experience", sectionId: "experience" },
+  { label: "Projects", href: "#projects", sectionId: "projects" },
+  { label: "Skills", href: "#skills", sectionId: "skills" },
+  { label: "Education", href: "#education", sectionId: "education" },
 ]
 ---
 
@@ -36,6 +50,7 @@ const navItems: NavItem[] = [
 
   <div class="nav-toggle-wrap">
     <ThemeToggle />
+    <LanguageToggle lang={lang} />
     <!-- Mobile: hamburger -->
     <button
       class="hamburger"
