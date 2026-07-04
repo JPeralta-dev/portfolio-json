@@ -1,8 +1,10 @@
 ---
 import Layout from "@/layouts/Layout.astro"
 
+import Nav from "@/components/Nav.astro"
 import About from "@/components/sections/About.astro"
 import Education from "@/components/sections/Education.astro"
+import Experience from "@/components/sections/Experience.astro"
 import Hero from "@/components/sections/Hero.astro"
 import Projects from "@/components/sections/Projects.astro"
 import Skills from "@/components/sections/Skills.astro"
@@ -14,11 +16,25 @@ const { name, label } = basics
 
 <Layout title={`Portafolio de ${name} - ${label}`}>
   <main>
-    <Hero />
-    <About />
-    <Projects />
-    <Education />
-    <Skills />
+    <Nav />
+    <section id="hero" transition:animate="fade" transition:name="section-hero">
+      <Hero />
+    </section>
+    <section id="about" transition:animate="slide" transition:name="section-about">
+      <About />
+    </section>
+    <section id="projects" transition:animate="slide" transition:name="section-projects">
+      <Projects />
+    </section>
+    <section id="experience" transition:animate="slide" transition:name="section-experience">
+      <Experience />
+    </section>
+    <section id="skills" transition:animate="slide" transition:name="section-skills">
+      <Skills />
+    </section>
+    <section id="education" transition:animate="slide" transition:name="section-education">
+      <Education />
+    </section>
   </main>
 
   <KeyboardManager />
@@ -26,16 +42,19 @@ const { name, label } = basics
 
 <style>
   main {
-    padding: 4.5rem;
+    padding: var(--space-16) var(--space-8) var(--space-12);
     margin: auto;
     width: 100%;
-    border-radius: 0%;
-    
+    max-width: var(--max-width);
+  }
+
+  main > section {
+    scroll-margin-top: calc(var(--nav-height) + var(--space-4));
   }
 
   @media (width <= 700px) {
     main {
-      padding: 2rem;
+      padding: var(--space-12) var(--space-4) var(--space-8);
     }
   }
 </style>

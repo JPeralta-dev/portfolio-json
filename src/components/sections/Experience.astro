@@ -4,38 +4,41 @@ import Section from "../Section.astro"
 import { work } from "@cv"
 ---
 
-<Section title="Experiencia laboral">
-  <ul>
+<Section title="Experiencia laboral" transitionName="section-experience">
+  <ul class="timeline">
     {
       work.map(
-        ({ name, startDate, endDate, position, summary, highlights, url }) => {
+        ({ name, startDate, endDate, position, summary, url }) => {
           const startYear = new Date(startDate).getFullYear()
           const endYear =
             endDate != null ? new Date(endDate).getFullYear() : "Actual"
 
           return (
-            <li>
+            <li class="timeline-item">
+              <div class="timeline-connector" aria-hidden="true"></div>
               <article>
                 <header>
-                  <div>
+                  <div class="role-info">
                     <h3>
                       <a href={url} title={`Ver ${name}`} target="_blank">
                         {name}
                       </a>
                     </h3>
-                    <h4>{position}</h4>
+                    <h4 class="role-title">{position}</h4>
                   </div>
 
-                  <div>
+                  <div class="dates">
                     <time 
                       datetime={startDate}
-                      data-title={startDate}>
+                      data-title={startDate}
+                      class="date-chip">
                         {startYear}
                     </time>
-                    {" - "}
+                    <span class="date-separator">—</span>
                     <time 
-                      datetime={endDate}
-                      data-title={endDate}>
+                      datetime={endDate ?? ''}
+                      data-title={endDate ?? 'Actual'}
+                      class="date-chip">
                         {endYear}
                     </time>
                   </div>
@@ -54,42 +57,103 @@ import { work } from "@cv"
 </Section>
 
 <style>
-  ul {
+  .timeline {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: var(--space-6);
+    padding-left: var(--space-4);
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--color-border);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: var(--space-6);
+  }
+
+  .timeline-connector {
+    position: absolute;
+    left: calc(-1 * var(--space-4) - 1px);
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    border: 2px solid var(--color-bg-primary);
+    box-shadow: 0 0 0 2px var(--color-accent-muted);
+  }
+
+  article {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    transition: border-color var(--transition-base);
+  }
+
+  article:hover {
+    border-color: var(--color-border-hover);
   }
 
   article h3 {
-    font-weight: 500;
-    color: #111;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-lg);
   }
 
   article a {
-    color: #111;
+    color: var(--color-text-primary);
+    transition: color var(--transition-fast);
   }
 
   article a:hover {
-    text-decoration: underline;
+    color: var(--color-accent);
   }
 
-  article h4 {
-    color: #222;
-    font-weight: 400;
+  .role-title {
+    color: var(--color-accent);
+    font-weight: 500;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    margin-top: var(--space-1);
   }
 
   header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 4px;
+    gap: var(--space-4);
+    margin-bottom: var(--space-2);
   }
 
-  time {
-    color: #464545;
-    font-size: 0.85rem;
-    min-width: 102px;
+  .dates {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    flex-shrink: 0;
+  }
+
+  .date-chip {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+    font-family: var(--font-mono);
     cursor: default;
+    min-width: 40px;
+    text-align: center;
+  }
+
+  .date-separator {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
   }
 
   [data-title]:hover:after {
@@ -100,30 +164,50 @@ import { work } from "@cv"
 
   [data-title]:after {
     content: attr(data-title);
-    background-color: #333;
-    color: #fff;
-    font-size: .75rem;
-    font-family: Menlo, Monaco, Lucida Console, "Courier New", monospace;;
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-xs);
+    font-family: var(--font-mono);
     position: absolute;
-    padding: .2rem .5rem;
+    padding: var(--space-1) var(--space-2);
     bottom: -1.4rem;
     left: 50%;
     white-space: nowrap;
-    box-shadow: 1px 1px 1px #222222;
+    box-shadow: var(--shadow-sm);
     opacity: 0;
-    border: 1px solid #111111;
-    z-index: 99999;
+    border: 1px solid var(--color-border);
+    z-index: 100;
     visibility: hidden;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
+    transform: translateX(-50%);
   }
 
   [data-title] {
     position: relative;
   }
 
+  article footer p {
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+  }
+
   @media (width <= 700px) {
-    time {
-      text-align: right;
+    .timeline {
+      padding-left: var(--space-3);
+    }
+
+    header {
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .dates {
+      justify-content: flex-start;
+    }
+
+    .date-chip {
+      text-align: left;
     }
   }
 </style>

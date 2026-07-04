@@ -4,28 +4,26 @@ import Section from "../Section.astro"
 import { education } from "@cv"
 ---
 
-<Section title="Educación">
-  <ul>
+<Section title="Educación" transitionName="section-education">
+  <ul class="edu-list">
     {
       education.map(({ institution, startDate, endDate, area }) => {
         const startYear = new Date(startDate).getFullYear()
         const endYear =
           endDate != null ? new Date(endDate).getFullYear() : "Actual"
-        const years = `${startYear} - ${endYear}`
+        const years = `${startYear} — ${endYear}`
 
         return (
-          <li>
+          <li class="edu-item">
             <article>
               <header>
-                <div>
+                <div class="edu-header">
                   <h3>{institution}</h3>
+                  <time class="edu-date">{years}</time>
                 </div>
-
-                <time>{years}</time>
               </header>
-
               <footer>
-                <p>{area}</p>
+                <p class="edu-area">{area}</p>
               </footer>
             </article>
           </li>
@@ -36,33 +34,60 @@ import { education } from "@cv"
 </Section>
 
 <style>
-  ul {
+  .edu-list {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: var(--space-3);
+  }
+
+  .edu-item {
+    padding-left: var(--space-3);
+    border-left: 2px solid var(--color-border);
+    transition: border-color var(--transition-base);
+  }
+
+  .edu-item:hover {
+    border-left-color: var(--color-accent);
+  }
+
+  article {
+    padding: var(--space-2) 0;
+  }
+
+  .edu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
   }
 
   article h3 {
     font-weight: 500;
-    color: #111;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-base);
   }
 
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 4px;
+  .edu-date {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+    font-family: var(--font-mono);
+    flex-shrink: 0;
   }
 
-  time {
-    color: #363636;
-    font-size: 0.85rem;
-    min-width: 102px;
+  .edu-area {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-top: var(--space-1);
   }
 
   @media (width <= 700px) {
-    time {
-      text-align: right;
+    .edu-header {
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .edu-date {
+      text-align: left;
     }
   }
 </style>

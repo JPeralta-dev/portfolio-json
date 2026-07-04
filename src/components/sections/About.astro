@@ -5,8 +5,26 @@ import { basics } from "@cv"
 const { summary } = basics
 ---
 
-<Section title="Sobre mí">
-  <p>
+<Section title="Sobre mí" transitionName="section-about">
+  <p class="about-text">
     {summary}
   </p>
 </Section>
+
+<style>
+  .about-text {
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    max-width: 65ch;
+    padding-left: var(--space-4);
+    border-left: 3px solid var(--color-accent);
+    text-wrap: pretty;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-text {
+      border-left-color: var(--color-accent);
+    }
+  }
+</style>

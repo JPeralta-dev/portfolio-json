@@ -5,185 +5,195 @@ import Section from "../Section.astro"
 import { projects } from "@cv"
 ---
 
-<Section title="Proyectos">
-  
+<Section title="Proyectos" transitionName="section-projects">
+  <div class="bento-grid">
     {
       projects.map(
-        ({ url, description, highlights, name, isActive, github,images }) => {
+        ({ url, description, highlights, name, isActive, github, images }, idx) => {
+          const isFeatured = idx === 0
           return (
-              <article>
-                <header>
-                  <h3>
-                    <a href={url} target="_blank" title={`Ver el proyecto ${name}`}>
-                      {name}
+            <article class={`project-card ${isFeatured ? 'featured' : ''}`}>
+              <header>
+                <h3>
+                  <a href={url} target="_blank" title={`Ver el proyecto ${name}`}>
+                    {name}
+                  </a>
+                  {isActive && <span class="active-dot" aria-label="Proyecto activo">•</span>}
+                  {github && (
+                    <a
+                      class="github-code-link"
+                      href={github}
+                      target="_blank"
+                      title={`Ver código fuente del proyecto ${name}`}
+                      aria-label={`Código fuente de ${name}`}
+                    >
+                      <GitHub />
                     </a>
-                    {isActive && <span>•</span>}
-                    {github && (
-                      <a
-                        class="github-code-link"
-                        href={github}
-                        target="_blank"
-                        title={`Ver código fuente del proyecto ${name}`}
-                      >
-                        <GitHub />
-                      </a>
-                    )}
-                  </h3>
-                  <p>{description}</p>
-                  <figure >
-                    {images?.map((img)=>{ 
-                    return <img class="proyectos" src={img} alt={`Imagen del proyecto ${name}`} />
-                  })}</figure> 
-                </header>
-                <footer>
-                  {highlights.map((highlight) => {
-                    return <span>{highlight}</span>
+                  )}
+                </h3>
+                <p>{description}</p>
+              </header>
+              {images && images.length > 0 && (
+                <figure class="project-images">
+                  {images.map((img) => {
+                    const fixedSrc = img.replace('/public/projects/', '/projects/')
+                    return <img src={fixedSrc} alt={`Imagen del proyecto ${name}`} loading="lazy" />
                   })}
+                </figure>
+              )}
+              {highlights && highlights.length > 0 && (
+                <footer class="tech-badges">
+                  {highlights.map((highlight) => (
+                    <span class="badge">{highlight}</span>
+                  ))}
                 </footer>
-              </article>
+              )}
+            </article>
           )
         }
       )
     }
-  </>
+  </div>
 </Section>
 
 <style>
-  
-  ul {
+  .bento-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-inline: -16px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-4);
   }
-  figure {
-      display: flex;
-      justify-content: left;
-      align-items: center;
-      gap: 10px;
-  }
-  
 
-  img {
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    height: 200px;
-    border-radius: 10px;
-  }
-  article {
-    border-radius: 8px;
-    border: 1.5px solid #000000;
-    gap: 16px;
+  .project-card {
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
     display: flex;
     flex-direction: column;
-    padding: 16px;
-    height: 100%;
-    margin-bottom: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.6s ease-out forwards;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--color-bg-secondary);
+    transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
   }
-  @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-border-hover);
+    box-shadow: var(--shadow-lg);
   }
-  to {  
-    opacity: 1;
-    transform: translateY(0);
+
+  .project-card.featured {
+    grid-column: span 2;
   }
-}
-  article header {
+
+  .project-card header {
     flex: 1;
   }
 
-  article h3 {
-    margin-bottom: 4px;
-  }
-
-  article a {
-    color: #111;
-  }
-
-  article a:hover {
-    text-decoration: underline;
-    transform: translateY(-5px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    border-color: #111;
-  }
-
-  article p {
-    font-size: 0.75rem;
-    line-height: 1.2rem;
-    margin-bottom: 4px;
-  }
-
-  article h3 span {
-    color: rgb(0, 188, 47);
-    animation-name: flicker;
-    animation-duration: 3s;
-    animation-timing-function: ease-in;
-    animation-iteration-count: infinite;
-  }
-
-  footer {
+  .project-card h3 {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    font-size: 0.6rem;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+    font-size: var(--font-size-lg);
   }
-  footer span:hover{
-    background: #444;
-    color: #eee;
-    transform: scale(1.1);
+
+  .project-card h3 a {
+    color: var(--color-text-primary);
+    transition: color var(--transition-fast);
   }
-  footer span {
-    border-radius: 9px;
-    background: #eee;
-    color: #5e5e5e;
-    font-size: 0.6rem;
-    font-weight: 500;
-    padding: 0.2rem 0.6rem;
-    transition: background 0.3s ease, transform 0.2s ease;
+
+  .project-card h3 a:hover {
+    color: var(--color-accent);
+  }
+
+  .active-dot {
+    color: var(--color-accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
   }
 
   .github-code-link {
-    margin-left: 5px;
+    margin-left: auto;
+    color: var(--color-text-muted);
+    display: inline-flex;
+    align-items: center;
+    transition: color var(--transition-fast);
   }
 
-  @keyframes flicker {
-    0% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.25;
-    }
-    100% {
-      opacity: 1;
-    }
+  .github-code-link:hover {
+    color: var(--color-text-primary);
   }
 
-  @media (width <= 70 0px) {
-    ul {
-      margin-inline: 0px;
+  .project-card p {
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+  }
+
+  .project-images {
+    display: flex;
+    gap: var(--space-2);
+    overflow-x: auto;
+    margin: 0;
+  }
+
+  .project-images img {
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    height: 120px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    flex-shrink: 0;
+  }
+
+  .tech-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .badge {
+    border-radius: var(--radius-sm);
+    background: var(--color-accent-muted);
+    color: var(--color-accent);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    font-family: var(--font-mono);
+    padding: var(--space-1) var(--space-2);
+    transition: background var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .badge:hover {
+    background: var(--color-border-hover);
+    transform: scale(1.05);
+  }
+
+  @media (width <= 700px) {
+    .bento-grid {
+      grid-template-columns: 1fr;
     }
 
-    article {
+    .project-card.featured {
+      grid-column: span 1;
+    }
+
+    .project-card {
       border: none;
-      box-shadow: 0 1px 1px #f2f2f2;
-      padding: 0 0 16px 0;
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-3) 0;
     }
-    img{
-      width: 150;
-      height: 150;
+
+    .project-images img {
+      height: 100px;
     }
   }
-  
 
   @media print {
-    article h3 span {
-      animation-name: none;
+    .active-dot {
+      animation: none;
     }
   }
 </style>

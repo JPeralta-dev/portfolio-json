@@ -4,16 +4,16 @@ import ThemeToggle from "@/components/ThemeToggle.astro"
 interface NavItem {
   label: string
   href: string
-  sectionSelector: string
+  sectionId: string
 }
 
 const navItems: NavItem[] = [
-  { label: "Inicio", href: "#hero", sectionSelector: "section:nth-of-type(1)" },
-  { label: "Sobre mí", href: "#sobre-mi", sectionSelector: "section:nth-of-type(2)" },
-  { label: "Proyectos", href: "#proyectos", sectionSelector: "section:nth-of-type(3)" },
-  { label: "Experiencia", href: "#experiencia", sectionSelector: "section:nth-of-type(4)" },
-  { label: "Educación", href: "#educacion", sectionSelector: "section:nth-of-type(5)" },
-  { label: "Skills", href: "#skills", sectionSelector: "section:nth-of-type(6)" },
+  { label: "Inicio", href: "#hero", sectionId: "hero" },
+  { label: "Sobre mí", href: "#about", sectionId: "about" },
+  { label: "Proyectos", href: "#projects", sectionId: "projects" },
+  { label: "Experiencia", href: "#experience", sectionId: "experience" },
+  { label: "Educación", href: "#education", sectionId: "education" },
+  { label: "Skills", href: "#skills", sectionId: "skills" },
 ]
 ---
 
@@ -82,23 +82,15 @@ const navItems: NavItem[] = [
   const hamburger = document.querySelector('.hamburger')
   const drawer = document.querySelector('.drawer-overlay')
   const drawerLinks = document.querySelectorAll('.drawer-link')
-  const sections = document.querySelectorAll('main > section, main > *:has(> section) > section, section')
+
+  // Section IDs — must match the IDs on index.astro sections
+  const sectionIds = ['hero', 'about', 'projects', 'experience', 'education', 'skills']
+  const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean) as Element[]
 
   // ── Smooth scroll ──
   function scrollToSection(href: string) {
-    // Try by href matching section position
     const sectionName = href.replace('#', '')
-    let target: Element | null = null
-
-    // First try: find section by index from navItems mapping
-    const nameMap: Record<string, number> = {
-      'hero': 0, 'sobre-mi': 1, 'proyectos': 2,
-      'experiencia': 3, 'educacion': 4, 'skills': 5
-    }
-    const sectionIdx = nameMap[sectionName]
-    if (sectionIdx !== undefined && sections[sectionIdx]) {
-      target = sections[sectionIdx]
-    }
+    const target = document.getElementById(sectionName)
 
     if (target) {
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -161,9 +153,7 @@ const navItems: NavItem[] = [
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Find which section index this is
-        const allSections = Array.from(sections)
-        const idx = allSections.indexOf(entry.target)
+        const idx = sections.indexOf(entry.target)
         if (idx >= 0) {
           navLinks.forEach(l => l.classList.remove('active'))
           const activeLink = document.querySelector(`.nav-link[data-index="${idx}"]`)
