@@ -34,7 +34,9 @@ const printInfo = [email, phone, linkedUrl].filter(Boolean).join(" • ")
     <NetworkBackground />
     <div class="container">
       <div class="info">
-        <TerminalText text={name} />
+        <h1 class="name-heading">
+          <TerminalText text={name} />
+        </h1>
         <h2 class="label">{label}</h2>
         <span class="location">
           <WorldMap />
@@ -135,6 +137,13 @@ const printInfo = [email, phone, linkedUrl].filter(Boolean).join(" • ")
     gap: var(--space-2);
     padding-right: var(--space-8);
     flex: 1;
+  }
+
+  .name-heading {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
   }
 
   .label {

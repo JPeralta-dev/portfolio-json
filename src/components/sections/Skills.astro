@@ -41,22 +41,20 @@ function categorizeSkills(skillsList: typeof skills) {
   
   for (const skill of skillsList) {
     const keywords = skill.keywords || []
-    // Determine category from keywords
-    let category = "Otros"
-    if (keywords.includes("Frontend") || keywords.includes("Desarrollo Web")) {
-      category = "Frontend"
-    } else if (keywords.includes("Backend") || keywords.includes("Servidor")) {
-      category = "Backend"
-    } else if (keywords.includes("Bases de Datos") || keywords.includes("SQL")) {
+    // Determine category from keywords — aligned with DevOps/Blockchain identity
+    let category = "Tecnologías"
+    if (keywords.includes("DevOps") || keywords.includes("Infraestructura") || keywords.includes("CI/CD") || keywords.includes("Cloud") || keywords.includes("Contenedores")) {
+      category = "DevOps & Infra"
+    } else if (keywords.includes("Blockchain") || keywords.includes("Web3") || keywords.includes("Smart Contracts") || keywords.includes("Solidity") || keywords.includes("DeFi")) {
+      category = "Blockchain & Web3"
+    } else if (keywords.includes("Bases de Datos") || keywords.includes("SQL") || keywords.includes("NoSQL") || keywords.includes("Almacenamiento")) {
       category = "Bases de Datos"
-    } else if (keywords.includes("Control de Versiones") || keywords.includes("Colaboración")) {
+    } else if (keywords.includes("Control de Versiones") || keywords.includes("Colaboración") || keywords.includes("Git")) {
       category = "Herramientas"
-    } else if (keywords.includes("CSS Framework") || keywords.includes("React Framework")) {
-      category = "Frameworks"
-    } else if (keywords.includes("UI")) {
-      category = "Frontend"
-    } else if (keywords.includes("JavaScript Superset")) {
-      category = "Backend"
+    } else if (keywords.includes("Frontend") || keywords.includes("Desarrollo Web") || keywords.includes("UI") || keywords.includes("CSS") || keywords.includes("Diseño Responsive")) {
+      category = "Lenguajes & Frameworks"
+    } else if (keywords.includes("Backend") || keywords.includes("Servidor") || keywords.includes("API") || keywords.includes("JavaScript Superset") || keywords.includes("SSR")) {
+      category = "Lenguajes & Frameworks"
     }
     
     if (!categories[category]) {
@@ -71,7 +69,7 @@ function categorizeSkills(skillsList: typeof skills) {
 const categorizedSkills = categorizeSkills(skills)
 
 // Maintain a consistent display order
-const categoryOrder = ["Frontend", "Backend", "Frameworks", "Bases de Datos", "Herramientas"]
+const categoryOrder = ["DevOps & Infra", "Blockchain & Web3", "Lenguajes & Frameworks", "Bases de Datos", "Herramientas"]
 const orderedCategories = categoryOrder.filter(cat => categorizedSkills[cat])
 // Add any remaining categories not in the order list
 for (const cat of Object.keys(categorizedSkills)) {
