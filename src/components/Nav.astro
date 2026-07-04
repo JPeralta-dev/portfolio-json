@@ -10,8 +10,8 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: "Inicio", href: "#hero", sectionId: "hero" },
   { label: "Sobre mí", href: "#about", sectionId: "about" },
-  { label: "Proyectos", href: "#projects", sectionId: "projects" },
   { label: "Experiencia", href: "#experience", sectionId: "experience" },
+  { label: "Proyectos", href: "#projects", sectionId: "projects" },
   { label: "Educación", href: "#education", sectionId: "education" },
   { label: "Skills", href: "#skills", sectionId: "skills" },
 ]
@@ -84,7 +84,7 @@ const navItems: NavItem[] = [
   const drawerLinks = document.querySelectorAll('.drawer-link')
 
   // Section IDs — must match the IDs on index.astro sections
-  const sectionIds = ['hero', 'about', 'projects', 'experience', 'education', 'skills']
+  const sectionIds = ['hero', 'about', 'experience', 'projects', 'education', 'skills']
   const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean) as Element[]
 
   // ── Smooth scroll ──

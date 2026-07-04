@@ -32,6 +32,9 @@ const printInfo = [email, phone, linkedUrl].filter(Boolean).join(" • ")
 <Section transitionName="section-hero">
   <div class="hero-wrapper">
     <NetworkBackground />
+    <div class="theme-toggle-position">
+      <ThemeToggle />
+    </div>
     <div class="container">
       <div class="info">
         <h1 class="name-heading">
@@ -103,9 +106,6 @@ const printInfo = [email, phone, linkedUrl].filter(Boolean).join(" • ")
             })
           }
         </footer>
-      </div>
-      <div class="hero-actions">
-        <ThemeToggle />
       </div>
       <figure class="profile-figure">
         <img src={image} alt={name} loading="eager" />
@@ -183,9 +183,14 @@ const printInfo = [email, phone, linkedUrl].filter(Boolean).join(" • ")
   }
 
   .hero-actions {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
+    display: none;
+  }
+
+  .theme-toggle-position {
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    z-index: 2;
   }
 
   .social-links {
@@ -273,11 +278,9 @@ const printInfo = [email, phone, linkedUrl].filter(Boolean).join(" • ")
       justify-content: center;
     }
 
-    .hero-actions {
-      position: absolute;
-      top: var(--space-2);
-      right: var(--space-2);
-      z-index: 2;
+    .theme-toggle-position {
+      top: var(--space-1);
+      right: var(--space-1);
     }
 
     .profile-figure {

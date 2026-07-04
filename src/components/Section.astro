@@ -23,11 +23,15 @@ const sectionId = `section-${title?.toLowerCase().replace(/\s+/g, '-') ?? Astro.
 <style>
   section {
     max-width: var(--max-width);
-    margin: 0 auto var(--space-12);
+    margin: 0 auto var(--space-16);
+  }
+
+  section:last-of-type {
+    margin-bottom: var(--space-8);
   }
 
   h2 {
-    margin-bottom: var(--space-2);
+    margin-bottom: var(--space-4);
     font-weight: 700;
     line-height: 1.5;
     font-size: var(--font-size-2xl);
