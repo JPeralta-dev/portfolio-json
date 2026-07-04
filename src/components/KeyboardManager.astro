@@ -134,6 +134,22 @@ const profilesInfo = profiles.map(({ network, url }) => {
         window.print()
       }
     },
+    {
+      id: "toggle-theme",
+      title: "Cambiar tema",
+      icon: `<svg style="margin-right: 8px" width="16" height="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+</svg>`,
+      hotkey: "ctrl+T",
+      section: "Acciones",
+      handler: () => {
+        const current = document.documentElement.getAttribute('data-theme') || 'dark'
+        const next = current === 'dark' ? 'light' : 'dark'
+        document.documentElement.setAttribute('data-theme', next)
+        localStorage.setItem('theme', next)
+        document.dispatchEvent(new CustomEvent('theme-change', { detail: { theme: next } }))
+      }
+    },
     ...data
   ])
 
@@ -151,6 +167,14 @@ const profilesInfo = profiles.map(({ network, url }) => {
     })
 
     document.dispatchEvent(event)
+  })
+
+  // Sync with theme changes from ThemeToggle or other sources
+  document.addEventListener('theme-change', (e: Event) => {
+    const detail = (e as CustomEvent).detail as { theme: string }
+    if (detail && detail.theme) {
+      localStorage.setItem('theme', detail.theme)
+    }
   })
 </script>
 
@@ -180,9 +204,9 @@ const profilesInfo = profiles.map(({ network, url }) => {
     }
 
     #footer-button {
-      background: #fff;
+      background: var(--color-bg-secondary);
       position: fixed;
-      border: 1px solid #eee;
+      border: 1px solid var(--color-border);
       right: 10px;
       bottom: 10px;
       width: 50px;
@@ -196,14 +220,15 @@ const profilesInfo = profiles.map(({ network, url }) => {
   }
 
   footer {
-    background: #fdfdfd;
-    border-top: 1px solid #eee;
+    background: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border);
     position: fixed;
     bottom: 0px;
     width: 100%;
     padding-block: 8px;
     text-align: center;
-    font-size: 0.85rem;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
 
     view-timeline-name: --revealing;
     view-timeline-axis: block;
@@ -211,6 +236,15 @@ const profilesInfo = profiles.map(({ network, url }) => {
     animation: linear 0.3s fadeIn;
     animation-timeline: --revealing;
     animation-range: entry 100% cover 10%;
+  }
+
+  kbd {
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 2px 4px;
+    font-size: 12px;
+    color: var(--color-text-primary);
   }
 
   kbd {
