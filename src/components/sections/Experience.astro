@@ -156,7 +156,8 @@ import { work } from "@cv"
     font-size: var(--font-size-xs);
   }
 
-  [data-title]:hover:after {
+  [data-title]:hover:after,
+  [data-title]:focus-visible:after {
     opacity: 1;
     transition: all 0.1s ease-in-out 0.5s;
     visibility: visible;
@@ -208,6 +209,17 @@ import { work } from "@cv"
 
     .date-chip {
       text-align: left;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    article,
+    .timeline-item {
+      transition-duration: 0ms !important;
+    }
+
+    [data-title]:after {
+      transition: none !important;
     }
   }
 </style>

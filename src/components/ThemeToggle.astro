@@ -6,7 +6,9 @@ import Luna from "@/icons/Luna.astro"
 <button
   id="theme-toggle"
   type="button"
-  aria-label="Toggle theme"
+  role="switch"
+  aria-checked="false"
+  aria-label="Cambiar tema oscuro/claro"
   title="Toggle dark/light theme"
 >
   <span class="icon-sun" aria-hidden="true"><Sol /></span>
@@ -25,9 +27,11 @@ import Luna from "@/icons/Luna.astro"
     if (theme === 'dark') {
       sun.style.display = 'inline'
       moon.style.display = 'none'
+      toggle!.setAttribute('aria-checked', 'false')
     } else {
       sun.style.display = 'none'
       moon.style.display = 'inline'
+      toggle!.setAttribute('aria-checked', 'true')
     }
   }
 

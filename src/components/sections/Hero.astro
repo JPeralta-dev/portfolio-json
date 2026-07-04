@@ -276,4 +276,15 @@ const printInfo = [email, phone, linkedUrl].filter(Boolean).join(" • ")
       justify-content: center;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .social-links a,
+    .profile-figure img {
+      transition-duration: 0ms !important;
+    }
+
+    .social-links a:hover {
+      transform: none !important;
+    }
+  }
 </style>

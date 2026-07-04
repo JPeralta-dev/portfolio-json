@@ -55,6 +55,10 @@ const { image, summary, url } = basics
     <ViewTransitions />
   </head>
   <body>
+    <!-- Skip link: first focusable element -->
+    <a href="#main-content" class="sr-only skip-link">
+      Saltar al contenido principal
+    </a>
     <slot />
   </body>
 </html>
@@ -124,7 +128,7 @@ const { image, summary, url } = basics
     --color-accent-muted: rgba(5, 150, 105, 0.1);
     --color-text-primary: #0f172a;
     --color-text-secondary: #475569;
-    --color-text-muted: #94a3b8;
+    --color-text-muted: #475569;
     --color-border: rgba(5, 150, 105, 0.2);
     --color-border-hover: rgba(5, 150, 105, 0.4);
   }
@@ -186,6 +190,45 @@ const { image, summary, url } = basics
 
   .print {
     display: none !important;
+  }
+
+  /* ── Screen Reader Only (visually hidden but accessible) ── */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* ── Skip Link (visible on focus) ── */
+  .skip-link {
+    z-index: 9999;
+  }
+
+  .skip-link:focus {
+    position: fixed;
+    top: var(--space-2);
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    height: auto;
+    padding: var(--space-2) var(--space-4);
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    background: var(--color-accent);
+    color: var(--color-bg-primary);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
   }
 
   @media print {

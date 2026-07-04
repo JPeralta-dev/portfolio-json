@@ -5,10 +5,14 @@ interface Props {
 }
 
 const { title, transitionName } = Astro.props
+const sectionId = `section-${title?.toLowerCase().replace(/\s+/g, '-') ?? Astro.props.transitionName ?? 'default'}`
 ---
 
-<section style={transitionName ? `view-transition-name: ${transitionName}` : undefined}>
-  {title && <h2>{title}</h2>}
+<section
+  style={transitionName ? `view-transition-name: ${transitionName}` : undefined}
+  {...(title ? { 'aria-labelledby': `${sectionId}-title` } : {})}
+>
+  {title && <h2 id={`${sectionId}-title`}>{title}</h2>}
   <slot />
 </section>
 

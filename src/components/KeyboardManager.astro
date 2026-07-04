@@ -63,7 +63,7 @@ const profilesInfo = profiles.map(({ network, url }) => {
   Pulsa <kbd>Cmd</kbd> + <kbd>K</kbd> para abrir la paleta de comandos.
 </footer>
 
-<div id="footer-button" class="no-print">
+<div id="footer-button" class="no-print" role="button" tabindex="0" aria-label="Abrir paleta de comandos">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     class="icon icon-tabler icon-tabler-command"
@@ -169,6 +169,14 @@ const profilesInfo = profiles.map(({ network, url }) => {
     document.dispatchEvent(event)
   })
 
+  // Keyboard accessibility: Enter and Space trigger click
+  footerButton?.addEventListener("keydown", (e: KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault()
+      footerButton.click()
+    }
+  })
+
   // Sync with theme changes from ThemeToggle or other sources
   document.addEventListener('theme-change', (e: Event) => {
     const detail = (e as CustomEvent).detail as { theme: string }
@@ -216,6 +224,11 @@ const profilesInfo = profiles.map(({ network, url }) => {
       align-items: center;
       justify-content: center;
       cursor: pointer;
+    }
+
+    #footer-button:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
     }
   }
 

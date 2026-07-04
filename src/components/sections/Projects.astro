@@ -196,4 +196,15 @@ import { projects } from "@cv"
       animation: none;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .active-dot {
+      animation: none !important;
+    }
+
+    .project-card,
+    .badge {
+      transition-duration: 0ms !important;
+    }
+  }
 </style>

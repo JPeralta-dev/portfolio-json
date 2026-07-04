@@ -141,6 +141,27 @@ const navItems: NavItem[] = [
   // Escape closes drawer
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && drawerOpen) closeDrawer()
+
+    // Focus trap inside drawer
+    if (e.key === 'Tab' && drawerOpen) {
+      const focusable = drawer!.querySelectorAll<HTMLElement>(
+        'a[href], button, [tabindex]:not([tabindex="-1"])'
+      )
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault()
+          last?.focus()
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault()
+          first?.focus()
+        }
+      }
+    }
   })
 
   // ── Scroll spy (IntersectionObserver) ──

@@ -170,4 +170,14 @@ for (const cat of Object.keys(categorizedSkills)) {
       grid-template-columns: 1fr;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pill {
+      transition-duration: 0ms !important;
+    }
+
+    .pill:hover {
+      transform: none !important;
+    }
+  }
 </style>
