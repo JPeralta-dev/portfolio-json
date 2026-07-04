@@ -1,0 +1,100 @@
+---
+interface Props {
+  text: string
+  speed?: number
+  cursor?: boolean
+}
+
+const { text, speed = 50, cursor = true } = Astro.props
+---
+
+<div class="terminal-text" aria-label={text} data-speed={speed}>
+  <span class="prompt" aria-hidden="true">$ </span>
+  <span class="typed-text" aria-hidden="true"></span>
+  {cursor && <span class="cursor" aria-hidden="true"></span>}
+  <!-- Accessible full text for screen readers -->
+  <span class="sr-only">{text}</span>
+</div>
+
+<script>
+  const container = document.querySelector('.terminal-text')
+  if (!container) throw new Error('TerminalText: container not found')
+
+  const typedEl = container.querySelector('.typed-text') as HTMLElement
+  if (!typedEl) throw new Error('TerminalText: typed-text not found')
+
+  const fullText = container.getAttribute('aria-label') || ''
+  const charSpeed = parseInt(container.getAttribute('data-speed') || '50', 10)
+  let charIndex = 0
+
+  // Respect reduced motion
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  if (prefersReduced) {
+    typedEl.textContent = fullText
+  } else {
+    function typeChar() {
+      if (charIndex < fullText.length) {
+        typedEl.textContent += fullText[charIndex]
+        charIndex++
+        setTimeout(typeChar, charSpeed)
+      }
+    }
+    // Small delay before starting
+    setTimeout(typeChar, 300)
+  }
+</script>
+
+<style>
+  .terminal-text {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-lg);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+  }
+
+  .prompt {
+    color: var(--color-accent);
+    user-select: none;
+    margin-right: var(--space-1);
+  }
+
+  .typed-text {
+    color: var(--color-text-primary);
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background: var(--color-accent);
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cursor {
+      animation: none;
+      opacity: 1;
+    }
+  }
+</style>

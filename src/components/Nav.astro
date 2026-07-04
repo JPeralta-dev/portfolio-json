@@ -1,0 +1,394 @@
+---
+import ThemeToggle from "@/components/ThemeToggle.astro"
+
+interface NavItem {
+  label: string
+  href: string
+  sectionSelector: string
+}
+
+const navItems: NavItem[] = [
+  { label: "Inicio", href: "#hero", sectionSelector: "section:nth-of-type(1)" },
+  { label: "Sobre mí", href: "#sobre-mi", sectionSelector: "section:nth-of-type(2)" },
+  { label: "Proyectos", href: "#proyectos", sectionSelector: "section:nth-of-type(3)" },
+  { label: "Experiencia", href: "#experiencia", sectionSelector: "section:nth-of-type(4)" },
+  { label: "Educación", href: "#educacion", sectionSelector: "section:nth-of-type(5)" },
+  { label: "Skills", href: "#skills", sectionSelector: "section:nth-of-type(6)" },
+]
+---
+
+<nav class="nav-pill" role="navigation" aria-label="Navegación principal">
+  <!-- Desktop: glass pill -->
+  <ul class="nav-links">
+    {navItems.map((item, i) => (
+      <li>
+        <a
+          href={item.href}
+          data-index={i}
+          class="nav-link"
+          aria-label={item.label}
+        >
+          {item.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <div class="nav-toggle-wrap">
+    <ThemeToggle />
+    <!-- Mobile: hamburger -->
+    <button
+      class="hamburger"
+      type="button"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-drawer"
+    >
+      <span class="hamburger-line" aria-hidden="true"></span>
+      <span class="hamburger-line" aria-hidden="true"></span>
+      <span class="hamburger-line" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div
+    id="mobile-drawer"
+    class="drawer-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Menú de navegación"
+    inert
+  >
+    <div class="drawer-panel">
+      <ul class="drawer-links">
+        {navItems.map((item, i) => (
+          <li>
+            <a
+              href={item.href}
+              data-index={i}
+              class="drawer-link"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const navLinks = document.querySelectorAll('.nav-link')
+  const hamburger = document.querySelector('.hamburger')
+  const drawer = document.querySelector('.drawer-overlay')
+  const drawerLinks = document.querySelectorAll('.drawer-link')
+  const sections = document.querySelectorAll('main > section, main > *:has(> section) > section, section')
+
+  // ── Smooth scroll ──
+  function scrollToSection(href: string) {
+    // Try by href matching section position
+    const sectionName = href.replace('#', '')
+    let target: Element | null = null
+
+    // First try: find section by index from navItems mapping
+    const nameMap: Record<string, number> = {
+      'hero': 0, 'sobre-mi': 1, 'proyectos': 2,
+      'experiencia': 3, 'educacion': 4, 'skills': 5
+    }
+    const sectionIdx = nameMap[sectionName]
+    if (sectionIdx !== undefined && sections[sectionIdx]) {
+      target = sections[sectionIdx]
+    }
+
+    if (target) {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      target.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' })
+    }
+  }
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault()
+      scrollToSection(link.getAttribute('href') || '')
+    })
+  })
+
+  // ── Mobile drawer ──
+  let drawerOpen = false
+
+  function openDrawer() {
+    drawerOpen = true
+    hamburger?.setAttribute('aria-expanded', 'true')
+    drawer?.removeAttribute('inert')
+    document.body.style.overflow = 'hidden'
+  }
+
+  function closeDrawer() {
+    drawerOpen = false
+    hamburger?.setAttribute('aria-expanded', 'false')
+    drawer?.setAttribute('inert', '')
+    document.body.style.overflow = ''
+  }
+
+  hamburger?.addEventListener('click', () => {
+    drawerOpen ? closeDrawer() : openDrawer()
+  })
+
+  drawer?.addEventListener('click', (e) => {
+    if (e.target === drawer) closeDrawer()
+  })
+
+  drawerLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault()
+      closeDrawer()
+      scrollToSection(link.getAttribute('href') || '')
+    })
+  })
+
+  // Escape closes drawer
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawerOpen) closeDrawer()
+  })
+
+  // ── Scroll spy (IntersectionObserver) ──
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -60% 0px',
+    threshold: 0
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Find which section index this is
+        const allSections = Array.from(sections)
+        const idx = allSections.indexOf(entry.target)
+        if (idx >= 0) {
+          navLinks.forEach(l => l.classList.remove('active'))
+          const activeLink = document.querySelector(`.nav-link[data-index="${idx}"]`)
+          activeLink?.classList.add('active')
+
+          drawerLinks.forEach(l => l.classList.remove('active'))
+          const activeDrawerLink = document.querySelector(`.drawer-link[data-index="${idx}"]`)
+          activeDrawerLink?.classList.add('active')
+        }
+      }
+    })
+  }, observerOptions)
+
+  sections.forEach(s => observer.observe(s))
+</script>
+
+<style>
+  /* ── Floating Glass Pill ── */
+  .nav-pill {
+    position: fixed;
+    top: var(--space-4);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: color-mix(in srgb, var(--color-bg-secondary) 85%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--color-border);
+    border-radius: 9999px;
+    box-shadow: var(--shadow-md);
+    transition: background var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    display: inline-block;
+    padding: var(--space-1) var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-md);
+    transition: color var(--transition-fast), background var(--transition-fast);
+  }
+
+  .nav-link:hover {
+    color: var(--color-text-primary);
+    background: var(--color-accent-muted);
+  }
+
+  .nav-link.active {
+    color: var(--color-accent);
+    background: var(--color-accent-muted);
+  }
+
+  .nav-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .nav-toggle-wrap {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-left: var(--space-2);
+    padding-left: var(--space-2);
+    border-left: 1px solid var(--color-border);
+  }
+
+  /* ── Hamburger ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    gap: 4px;
+    transition: background var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .hamburger:hover {
+    background: var(--color-accent-muted);
+    border-color: var(--color-border-hover);
+  }
+
+  .hamburger:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .hamburger-line {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--color-text-primary);
+    border-radius: 1px;
+    transition: transform var(--transition-base), opacity var(--transition-base);
+    transform-origin: center;
+  }
+
+  .hamburger[aria-expanded="true"] .hamburger-line:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .hamburger[aria-expanded="true"] .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger[aria-expanded="true"] .hamburger-line:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* ── Mobile Drawer ── */
+  .drawer-overlay {
+    display: none;
+  }
+
+  /* ── Mobile (< 640px) ── */
+  @media (width < 640px) {
+    .nav-links {
+      display: none;
+    }
+
+    .hamburger {
+      display: flex;
+    }
+
+    .nav-pill {
+      left: auto;
+      right: var(--space-4);
+      transform: none;
+      padding: var(--space-2) var(--space-3);
+    }
+
+    .drawer-overlay {
+      display: block;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--transition-base), visibility var(--transition-base);
+    }
+
+    .drawer-overlay:not([inert]) {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .drawer-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(300px, 80vw);
+      height: 100%;
+      background: var(--color-bg-secondary);
+      border-left: 1px solid var(--color-border);
+      padding: var(--space-12) var(--space-6) var(--space-6);
+      transform: translateX(100%);
+      transition: transform var(--transition-slow);
+    }
+
+    .drawer-overlay:not([inert]) .drawer-panel {
+      transform: translateX(0);
+    }
+
+    .drawer-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .drawer-link {
+      display: block;
+      padding: var(--space-3) var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--font-size-lg);
+      color: var(--color-text-primary);
+      border-radius: var(--radius-md);
+      transition: color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .drawer-link:hover,
+    .drawer-link.active {
+      color: var(--color-accent);
+      background: var(--color-accent-muted);
+    }
+
+    .drawer-link:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+  }
+
+  /* ── Reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    .nav-pill,
+    .nav-link,
+    .hamburger,
+    .hamburger-line,
+    .drawer-overlay,
+    .drawer-panel,
+    .drawer-link {
+      transition-duration: 0ms !important;
+    }
+  }
+</style>

@@ -1,0 +1,148 @@
+---
+// NetworkBackground — Pure CSS network topology (nodes + connections)
+// No JS, no canvas. GPU-safe animations only.
+---
+
+<div class="network-bg" aria-hidden="true">
+  <!-- Nodes: positioned via CSS grid -->
+  <div class="nodes">
+    <span class="node node-1"></span>
+    <span class="node node-2"></span>
+    <span class="node node-3"></span>
+    <span class="node node-4"></span>
+    <span class="node node-5"></span>
+    <span class="node node-6"></span>
+    <span class="node node-7"></span>
+    <span class="node node-8"></span>
+    <span class="node node-9"></span>
+    <span class="node node-10"></span>
+    <span class="node node-11"></span>
+    <span class="node node-12"></span>
+    <span class="node node-13"></span>
+    <span class="node node-14"></span>
+    <span class="node node-15"></span>
+  </div>
+  <!-- Connections: pseudo-elements on nodes -->
+  <div class="connections" aria-hidden="true">
+    <span class="conn conn-1"></span>
+    <span class="conn conn-2"></span>
+    <span class="conn conn-3"></span>
+    <span class="conn conn-4"></span>
+    <span class="conn conn-5"></span>
+    <span class="conn conn-6"></span>
+    <span class="conn conn-7"></span>
+    <span class="conn conn-8"></span>
+    <span class="conn conn-9"></span>
+    <span class="conn conn-10"></span>
+    <span class="conn conn-11"></span>
+    <span class="conn conn-12"></span>
+  </div>
+</div>
+
+<style>
+  .network-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Nodes ── */
+  .nodes {
+    position: absolute;
+    inset: 0;
+  }
+
+  .node {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    opacity: 0.06;
+  }
+
+  /* Node positions (percentage-based for responsiveness) */
+  .node-1  { top: 10%; left: 15%; }
+  .node-2  { top: 25%; left: 80%; }
+  .node-3  { top: 45%; left: 30%; }
+  .node-4  { top: 60%; left: 70%; }
+  .node-5  { top: 80%; left: 20%; }
+  .node-6  { top: 15%; left: 50%; }
+  .node-7  { top: 35%; left: 90%; }
+  .node-8  { top: 55%; left: 10%; }
+  .node-9  { top: 75%; left: 55%; }
+  .node-10 { top: 90%; left: 85%; }
+  .node-11 { top: 5%;  left: 35%; }
+  .node-12 { top: 40%; left: 60%; }
+  .node-13 { top: 70%; left: 40%; }
+  .node-14 { top: 20%; left: 70%; }
+  .node-15 { top: 50%; left: 45%; }
+
+  /* Node pulse animations (GPU-safe: opacity + transform only) */
+  .node-1,  .node-6,  .node-11 { animation: node-pulse 20s ease-in-out infinite; }
+  .node-2,  .node-7,  .node-14 { animation: node-pulse 25s ease-in-out infinite 3s; }
+  .node-3,  .node-8,  .node-13 { animation: node-pulse 18s ease-in-out infinite 6s; }
+  .node-4,  .node-9,  .node-15 { animation: node-pulse 22s ease-in-out infinite 9s; }
+  .node-5,  .node-10, .node-12 { animation: node-pulse 30s ease-in-out infinite 12s; }
+
+  @keyframes node-pulse {
+    0%, 100% { opacity: 0.04; transform: scale(1); }
+    50%      { opacity: 0.08; transform: scale(1.5); }
+  }
+
+  /* ── Connections ── */
+  .connections {
+    position: absolute;
+    inset: 0;
+  }
+
+  .conn {
+    position: absolute;
+    height: 1px;
+    background: var(--color-accent);
+    opacity: 0.04;
+    transform-origin: left center;
+  }
+
+  /* Connection lines (position + rotation to link nodes) */
+  .conn-1  { top: 12%; left: 16%; width: 34vw; transform: rotate(8deg); }
+  .conn-2  { top: 27%; left: 52%; width: 28vw; transform: rotate(-5deg); }
+  .conn-3  { top: 47%; left: 31%; width: 30vw; transform: rotate(12deg); }
+  .conn-4  { top: 62%; left: 22%; width: 48vw; transform: rotate(-3deg); }
+  .conn-5  { top: 17%; left: 36%; width: 14vw; transform: rotate(15deg); }
+  .conn-6  { top: 37%; left: 61%; width: 29vw; transform: rotate(-10deg); }
+  .conn-7  { top: 57%; left: 11%; width: 19vw; transform: rotate(7deg); }
+  .conn-8  { top: 77%; left: 42%; width: 13vw; transform: rotate(-8deg); }
+  .conn-9  { top: 42%; left: 46%; width: 24vw; transform: rotate(5deg); }
+  .conn-10 { top: 72%; left: 41%; width: 14vw; transform: rotate(-12deg); }
+  .conn-11 { top: 22%; left: 71%; width: 9vw;  transform: rotate(25deg); }
+  .conn-12 { top: 52%; left: 31%; width: 14vw; transform: rotate(-6deg); }
+
+  /* Connection drift (GPU-safe: opacity only) */
+  .conn-1,  .conn-4,  .conn-7  { animation: conn-drift 15s ease-in-out infinite; }
+  .conn-2,  .conn-5,  .conn-10 { animation: conn-drift 20s ease-in-out infinite 4s; }
+  .conn-3,  .conn-8,  .conn-11 { animation: conn-drift 25s ease-in-out infinite 8s; }
+  .conn-6,  .conn-9,  .conn-12 { animation: conn-drift 18s ease-in-out infinite 12s; }
+
+  @keyframes conn-drift {
+    0%, 100% { opacity: 0.03; }
+    50%      { opacity: 0.06; }
+  }
+
+  /* ── Hide on mobile for performance ── */
+  @media (width < 640px) {
+    .network-bg {
+      display: none;
+    }
+  }
+
+  /* ── Reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    .node, .conn {
+      animation: none !important;
+      opacity: 0.04;
+    }
+  }
+</style>
