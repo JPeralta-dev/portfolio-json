@@ -1,190 +1,193 @@
 {
   "basics": {
-    "name": "Miguel Ángel Durán",
-    "label": "Full-Stack developer with more than 15 years of experience & development content creator",
-    "image": "/me.webp",
-    "email": "miduga@gmail.com",
-    "phone": "+34 688888888",
-    "url": "https://midu.dev",
-    "summary": "+15 years of experience as a web developer. Currently I am a content creator and development dommunicator. I live in Barcelona, Spain. I have worked in different environments: from accelerating the development of start-ups to leading teams in multinational companies.",
+    "name": "Juan David Peralta Fuentes",
+    "label": "Backend Developer with 3+ years of experience. Specialist in Python, TypeScript, and cloud technologies. Focused on scalable APIs, distributed architectures, and microservices. DevOps with Kubernetes and CI/CD.",
+    "image": "/117424457.webp",
+    "email": "juandavidperaltafuentes@gmail.com",
+    "phone": "+57 3152774623",
+    "url": "https://github.com/david123456858",
+    "cv": "",
+    "summary": "Backend Developer with over 3 years of experience specializing in Python, TypeScript, and cloud technologies. I have led teams in diverse environments optimizing systems that directly impact business metrics. Strong experience in DevOps with Kubernetes and CI/CD practices. Focused on clean code, scalable architectures, and high-impact deliveries.",
     "location": {
       "address": "",
-      "postalCode": "08820",
-      "city": "el Prat de Llobregat",
-      "countryCode": "ES",
-      "region": "Spain"
+      "postalCode": "200003",
+      "city": "Valledupar",
+      "countryCode": "CO",
+      "region": "Colombia"
     },
     "profiles": [
       {
         "network": "LinkedIn",
-        "username": "midudev",
-        "url": "https://linkedin.com/in/midudev"
-      },
-      {
-        "network": "X",
-        "username": "midudev",
-        "url": "https://x.com/midudev"
+        "username": "juan-david-peralta-fuentes",
+        "url": "https://www.linkedin.com/in/juan-david-peralta-fuentes-a7a944268/"
       },
       {
         "network": "GitHub",
-        "username": "midudev",
-        "url": "https://github.com/midudev"
+        "username": "david123456858",
+        "url": "https://github.com/david123456858"
       }
     ]
   },
   "work": [
     {
-      "name": "midudev",
-      "position": "Web programming communicator",
-      "url": "https://twitch.tv/midudev",
-      "startDate": "2021-01-01",
+      "name": "Finance Tracker",
+      "position": "Personal Project",
+      "url": "",
+      "startDate": "2026-06-01",
       "endDate": null,
-      "summary": "Most watched development streamer in Spanish on Twitch. +1 million followers across all my social networks. Recognised by Google, Microsoft and GitHub for my impact on the development community.",
+      "summary": "Developing full-stack finance tracker with Clean Architecture DDD (15 business domains), Express 5 + MongoDB/Mongoose backend and Telegram bot with NLP (Groq) for natural-language expense parsing in Spanish. Integrating OCR (Tesseract) + Whisper transcription for receipt and voice-based expense capture, with event-driven notification system and AES-256-GCM encryption for sensitive financial data.",
       "highlights": [
-        "Started the company"
+        "Clean Architecture DDD with 15 business domains",
+        "NLP (Groq) + OCR (Tesseract) + Whisper",
+        "AES-256-GCM encryption and event-driven notifications",
+        "Bank-specific CSV importers with AI category mapping"
       ]
     },
     {
-      "name": "Adevinta",
-      "position": "Lead Frontend Architect",
-      "url": "https://twitch.tv/midudev",
-      "startDate": "2016-06-01",
-      "endDate": "2022-09-01",
-      "summary": "I led a technical convergence between different products and migrated from a monolithic architecture to a more flexible and optimised one. I fostered best practices and performance culture improvements, as well as rapid delivery of value to users.",
+      "name": "Ruta Oncologica",
+      "position": "Backend Developer",
+      "url": "",
+      "startDate": "2026-03-01",
+      "endDate": "2026-06-01",
+      "summary": "Built Express 5 + TypeScript backend with 39 endpoints for oncology patient tracking (8,800+ lines), integrating SQL Server cross-database queries with Redis caching and BullMQ async workers. Replaced N+1 queries with batch patterns across 9 hospitalization endpoints, reducing database round trips by 90%.",
       "highlights": [
-        "Started the company"
+        "Express 5 + TypeScript + SQL Server + Redis + BullMQ",
+        "39 endpoints with 8,800+ lines of code",
+        "90% reduction in database round trips via batch patterns",
+        "KPIs with SQL CTE priority windows (ROW_NUMBER, COUNT DISTINCT)"
       ]
     },
     {
-      "name": "Hubii",
-      "position": "Senior FrontEnd Developer",
-      "startDate": "2011-03-01",
-      "endDate": "2016-05-01",
-      "summary": "I developed a geolocated news platform and an API to consume the information. Scaled services to support the load of over hundreds of thousands of requests per day. Cut delivery times and deployments to production by half. Collaborated with Mozilla and Telefónica to develop the first FirefoxOS TV app.",
+      "name": "GlowPic",
+      "position": "Backend Developer",
+      "url": "",
+      "startDate": "2025-06-01",
+      "endDate": "2025-08-01",
+      "summary": "Developed REST API with FastAPI implementing Clean Architecture and SOLID principles, resulting in 85% more maintainable and scalable code for user management and multimedia storage in production. Implemented automatic Swagger/OpenAPI documentation and deployment on Render, reducing developer onboarding from 2 days to 30 minutes.",
       "highlights": [
-        "Started the company"
+        "FastAPI + Clean Architecture + SOLID",
+        "Swagger/OpenAPI + Render (onboarding: 2 days to 30 min)",
+        "Cloudinary + Turso with optimized pagination",
+        "60% reduction in response times"
       ]
     }
   ],
-  "volunteer": [{
-    "organization": "Organization",
-    "position": "Volunteer",
-    "url": "https://organization.com/",
-    "startDate": "2012-01-01",
-    "endDate": "2013-01-01",
-    "summary": "Description…",
-    "highlights": [
-      "Awarded 'Volunteer of the Month'"
-    ]
-  }],
-  "education": [{
-    "institution": "Universitat Oberta de Catalunya",
-    "url": "https://www.uoc.edu/portal/es/index.html",
-    "area": "Software Engineer",
-    "studyType": "Bachelor",
-    "startDate": "2003-01-01",
-    "endDate": "2009-01-01",
-    "score": "4.0",
-    "courses": [
-      "DB1101 - Basic SQL"
-    ]
-  }],
-  "awards": [{
-    "title": "Award",
-    "date": "2014-11-01",
-    "awarder": "Company",
-    "summary": "There is no spoon."
-  }],
-  "certificates": [{
-    "name": "Certificate",
-    "date": "2021-11-07",
-    "issuer": "Company",
-    "url": "https://certificate.com"
-  }],
-  "publications": [{
-    "name": "Publication",
-    "publisher": "Company",
-    "releaseDate": "2014-10-01",
-    "url": "https://publication.com",
-    "summary": "Description…"
-  }],
+  "volunteer": [],
+  "education": [
+    {
+      "institution": "Universidad Popular del Cesar",
+      "url": "https://www.unicesar.edu.co/",
+      "area": "Systems Engineering",
+      "studyType": "Bachelor",
+      "startDate": "2021-02-01",
+      "endDate": "2026-01-01",
+      "score": ""
+    },
+    {
+      "institution": "Oracle Academy",
+      "url": "",
+      "area": "Database Programming with PL/SQL",
+      "studyType": "Course",
+      "startDate": "2023-02-01",
+      "endDate": "2023-05-01",
+      "score": ""
+    }
+  ],
+  "awards": [],
+  "certificates": [
+    {
+      "name": "Oracle Academy: Database Programming with PL/SQL",
+      "date": "2023-05-01",
+      "issuer": "Oracle Academy",
+      "url": ""
+    }
+  ],
+  "publications": [],
   "skills": [
     {
-      "name": "HTML",
-      "level": "Master",
-      "keywords": [
-        "Web development", "Frontend"
-      ]
-    },
-    {
-      "name": "CSS",
-      "level": "Master",
-      "keywords": [
-        "Web development", "Frontend", "Diseño Responsive"
-      ]
-    },
-    {
-      "name": "JavaScript",
-      "level": "Master",
-      "keywords": [
-        "Web development", "Frontend", "Backend", "Fullstack"
-      ]
-    },
-    {
-      "name": "Tailwind",
+      "name": "Python",
       "level": "Advanced",
-      "keywords": [
-        "Web development", "Frontend", "CSS Framework", "Diseño Responsive"
-      ]
+      "keywords": ["Backend", "DevOps", "Automatizacion", "API"]
     },
     {
       "name": "TypeScript",
       "level": "Advanced",
-      "keywords": [
-        "Web development", "Frontend", "Backend", "JavaScript Superset"
-      ]
+      "keywords": ["Backend", "API", "Fullstack", "SSR"]
     },
     {
-      "name": "Node",
+      "name": "JavaScript",
       "level": "Advanced",
-      "keywords": [
-        "Web development", "Backend", "JavaScript", "Servidor"
-      ]
+      "keywords": ["Backend", "Fullstack", "Desarrollo Web"]
     },
     {
-      "name": "MySQL",
+      "name": "Solidity",
+      "level": "Intermediate",
+      "keywords": ["Blockchain", "Web3", "Smart Contracts", "DeFi"]
+    },
+    {
+      "name": "FastAPI",
       "level": "Advanced",
-      "keywords": [
-        "Bases de Datos", "SQL", "Database", "Backend"
-      ]
+      "keywords": ["Backend", "Python", "API", "Servidor"]
+    },
+    {
+      "name": "Express.js",
+      "level": "Advanced",
+      "keywords": ["Backend", "API", "Servidor"]
+    },
+    {
+      "name": "Hono",
+      "level": "Intermediate",
+      "keywords": ["Backend", "API", "Edge Computing"]
+    },
+    {
+      "name": "NestJS",
+      "level": "Intermediate",
+      "keywords": ["Backend", "API", "Arquitectura"]
+    },
+    {
+      "name": "MongoDB",
+      "level": "Advanced",
+      "keywords": ["Bases de Datos", "NoSQL", "Almacenamiento"]
+    },
+    {
+      "name": "PostgreSQL",
+      "level": "Advanced",
+      "keywords": ["Bases de Datos", "SQL", "Almacenamiento"]
+    },
+    {
+      "name": "Redis",
+      "level": "Intermediate",
+      "keywords": ["Bases de Datos", "Caching", "Colas"]
+    },
+    {
+      "name": "SQL Server",
+      "level": "Intermediate",
+      "keywords": ["Bases de Datos", "SQL", "Almacenamiento"]
+    },
+    {
+      "name": "Docker",
+      "level": "Advanced",
+      "keywords": ["DevOps", "Infraestructura", "Contenedores", "CI/CD"]
+    },
+    {
+      "name": "Kubernetes",
+      "level": "Intermediate",
+      "keywords": ["DevOps", "Infraestructura", "Orquestacion", "Cloud"]
     },
     {
       "name": "Git",
       "level": "Advanced",
-      "keywords": [
-        "Version control", "Colaboración", "Source code"
-      ]
+      "keywords": ["Control de Versiones", "Colaboracion", "Git"]
     },
     {
-      "name": "GitHub",
-      "level": "Advanced",
-      "keywords": [
-        "Version control", "Collaboration", "Source code", "Git"
-      ]
+      "name": "GitHub Actions",
+      "level": "Intermediate",
+      "keywords": ["CI/CD", "DevOps", "Automatizacion", "Control de Versiones"]
     },
     {
-      "name": "Next.js",
+      "name": "pytest",
       "level": "Advanced",
-      "keywords": [
-        "Web development", "Frontend", "React Framework", "SSR", "Static Generation"
-      ]
-    },
-    {
-      "name": "React",
-      "level": "Advanced",
-      "keywords": [
-        "Web development", "Frontend", "JavaScript Library", "UI"
-      ]
+      "keywords": ["Testing", "Backend", "Calidad"]
     }
   ],
   "languages": [
@@ -194,82 +197,119 @@
     },
     {
       "language": "English",
-      "fluency": "Advanced"
+      "fluency": "Intermediate (B1)"
     }
   ],
-  "interests": [{
-    "name": "Wildlife",
-    "keywords": [
-      "Ferrets",
-      "Unicorns"
-    ]
-  }],
-  "references": [{
-    "name": "Jane Doe",
-    "reference": "Reference…"
-  }],
+  "interests": [],
+  "references": [],
   "projects": [
     {
-      "name": "mars.codes",
+      "name": "Finance Tracker",
       "isActive": true,
-      "description": "Interactive story with programming challenges to travel to Mars",
+      "description": "Full-stack finance tracker with Clean Architecture DDD (15 business domains). Express 5 + MongoDB backend with Telegram NLP bot, OCR receipt capture, Whisper voice transcription, AES-256-GCM encryption, and bank-specific CSV import adapters with AI-powered category mapping.",
       "highlights": [
-        "Choose your own adventure",
-        "In progress"
+        "Clean Architecture DDD",
+        "NLP + OCR + Whisper",
+        "AES-256-GCM",
+        "Event-Driven Architecture"
       ],
-      "url": "https://mars.codes"
+      "url": "",
+      "github": "",
+      "type": "fullstack",
+      "role": "Solo Developer",
+      "techStack": ["Express.js", "MongoDB", "Groq", "Tesseract", "Whisper", "Telegram Bot API"]
     },
     {
-      "name": "AdventJS",
-      "isActive": true,
-      "description": "JavaScript programming challenges for every day of December until Christmas",
+      "name": "Ruta Oncologica",
+      "isActive": false,
+      "description": "Express 5 + TypeScript backend with 39 endpoints for oncology patient tracking. SQL Server cross-database with Redis caching, BullMQ async workers, and optimized batch patterns reducing database round trips by 90%.",
       "highlights": [
-        "+1 million visits",
-        "Multilanguage",
-        "JavaScript & TypeScript"
+        "39 Endpoints",
+        "Batch Query Optimization",
+        "SQL CTE Windows",
+        "Redis + BullMQ"
       ],
-      "url": "https://advent.js/dev"
+      "url": "",
+      "github": "",
+      "type": "backend",
+      "role": "Backend Developer",
+      "techStack": ["Express.js", "TypeScript", "SQL Server", "Redis", "BullMQ"]
     },
     {
-      "name": "Codember",
-      "isActive": true,
-      "description": "Interactive programming game with challenges and secrets",
+      "name": "GlowPic",
+      "isActive": false,
+      "description": "REST API with FastAPI implementing Clean Architecture and SOLID principles for user management and multimedia storage. Automatic Swagger/OpenAPI documentation, Cloudinary + Turso integration with optimized pagination reducing response times by 60%.",
       "highlights": [
-        "+2000 active users",
-        "Challenges for any language"
+        "FastAPI + Clean Architecture",
+        "Cloudinary + Turso",
+        "60% Response Time Reduction"
       ],
-      "url": "https://codember.dev"
+      "url": "",
+      "github": "",
+      "type": "backend",
+      "role": "Backend Developer",
+      "techStack": ["FastAPI", "Python", "Cloudinary", "Turso", "Swagger"]
     },
     {
-      "name": "codi.link",
-      "isActive": true,
-      "description": "Playground of HTML, CSS and JavaScript code for sharing",
+      "name": "Cajero Automatico",
+      "isActive": false,
+      "description": "Functional ATM system replicating real-world behavior: dual authentication with static (secure PINs) and dynamic keys, matrix-based bill management for exact combination calculation, and relational database updating inventories and transactions in real time.",
       "highlights": [
-        "100k monthly visit",
-        "Developed by the community"
+        "Dual Authentication (PIN + Dynamic Key)",
+        "Matrix Bill Management",
+        "Relational Database"
       ],
-      "url": "https://codi.link",
-      "github": "https://github.com/midudev/codi.link"
+      "url": "https://github.com/david123456858/Cajero-Back",
+      "github": "https://github.com/david123456858/Cajero-Back",
+      "type": "backend",
+      "role": "Backend Developer",
+      "techStack": ["Node.js", "MySQL", "REST API"],
+      "images": ["/projects/cajero1.webp", "/projects/cajero2.webp"]
     },
     {
-      "name": "Pruebas Técnicas",
-      "isActive": true,
-      "description": "List of technical tests of companies to practice programming",
+      "name": "DevelopWork",
+      "isActive": false,
+      "description": "Intuitive maintenance order management software for companies, enabling user and equipment control with detailed order execution history. Optimizes time and resources, improving operational efficiency.",
       "highlights": [
-        "100% free",
-        "+500 community solutions"
+        "Order Management",
+        "User & Equipment Control",
+        "Operational Optimization"
       ],
-      "url": "https://pruebastecnicas.com",
-      "github": "https://github.com/midudev/pruebas-tecnicas"
+      "url": "https://github.com/david123456858/develokWord_Backend",
+      "github": "https://github.com/david123456858/develokWord_Backend",
+      "type": "backend",
+      "role": "Backend Developer",
+      "techStack": ["Node.js", "Express", "MongoDB"]
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Oracle Academy: Database Programming with PL/SQL",
+      "date": "2023-05-01",
+      "issuer": "Oracle Academy",
+      "url": ""
+    }
+  ],
+  "tools": [
+    {
+      "name": "Docker",
+      "category": "devops"
     },
     {
-      "name": "miduConf",
-      "description": "Streaming programming conference for the Spanish-speaking community with top talks",
-      "highlights": [
-        "+15k tickets handed over",
-        "+50k live viewers"
-      ],
-      "url": "https://miduconf.com"
+      "name": "Kubernetes",
+      "category": "infrastructure"
+    },
+    {
+      "name": "GitHub Actions",
+      "category": "ci-cd"
+    },
+    {
+      "name": "Render",
+      "category": "cloud"
+    },
+    {
+      "name": "Click Up",
+      "category": "devops"
     }
   ]
 }
